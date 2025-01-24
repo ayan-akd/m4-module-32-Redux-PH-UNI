@@ -11,7 +11,7 @@ import RegisteredSemesters from "@/pages/admin/courseManagement/RegisteredSemest
 import CreateCourse from "@/pages/admin/courseManagement/CreateCourse";
 import Courses from "@/pages/admin/courseManagement/Courses";
 import OfferCourse from "@/pages/admin/courseManagement/OfferCourse";
-import OfferedCourses from "@/pages/admin/courseManagement/OfferedCourses";
+import OfferedCourses from "@/pages/student/OfferedCourses";
 
 export const adminPaths = [
   {
@@ -96,8 +96,8 @@ export const adminPaths = [
         path: "offered-courses",
         element: <OfferedCourses />,
       },
-    ]
-  }
+    ],
+  },
 ];
 
 // export const adminSidebarItems = adminPaths.reduce((acc: TSidebarItem[], item) => {
