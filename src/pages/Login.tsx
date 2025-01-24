@@ -16,14 +16,15 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PHForm from "@/components/form/PHForm";
 import PHInput from "@/components/form/PHInput";
+import PHPassword from "@/components/form/PHPassword";
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [login] = useLoginMutation();
   const defaultValues = {
-    id: "A-0001",
-    password: "admin123",
+    id: "2025010003",
+    password: "student123",
   };
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Logging in...");
@@ -38,7 +39,9 @@ export default function Login() {
       const user = verifyToken(res.data.accessToken) as TUser;
       dispatch(setUser({ user: user, token: res.data.accessToken }));
       toast.success("Logged in successfully", { id: toastId, duration: 3000 });
-      navigate(`/${user.role}/dashboard`);
+      if (res?.data?.needsPasswordChange) {
+        navigate("/change-password");
+      } else navigate(`/${user.role}/dashboard`);
     } catch {
       toast.error("Invalid credentials", { id: toastId, duration: 3000 });
     }
@@ -56,7 +59,7 @@ export default function Login() {
           <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
             <CardContent className="space-y-2">
               <PHInput name="id" type="text" label="ID" />
-              <PHInput name="password" type="password" label="Password" />
+              <PHPassword name="password" label="Password" />
             </CardContent>
             <CardFooter>
               <Button htmlType="submit" className="mx-auto">
